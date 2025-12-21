@@ -1,5 +1,4 @@
 const PersonalTransaction = require('../models/personalTransactionModel');
-const sendEmail = require('../utils/sendEmail');
 const User = require('../models/userModel');
 
 // @desc    Get all personal transactions
@@ -29,32 +28,6 @@ const addTransaction = async (req, res) => {
             description,
             date: date || Date.now(),
         });
-
-        // Check budget limit if it's an expense
-        if (type === 'expense') {
-            const transactions = await PersonalTransaction.find({ user: req.user.id });
-            const totalIncome = transactions.filter(t => t.type === 'income').reduce((acc, t) => acc + t.amount, 0);
-            const totalExpense = transactions.filter(t => t.type === 'expense').reduce((acc, t) => acc + t.amount, 0);
-
-            if (totalIncome > 0 && totalExpense >= totalIncome * 0.8) {
-                // Trigger 80% Alert
-                const user = await User.findById(req.user.id);
-                const percentage = ((totalExpense / totalIncome) * 100).toFixed(1);
-
-                console.log(`Alert: Expenses at ${percentage}% of Income for user ${user.email}`);
-
-                if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-                    await sendEmail({
-                        email: user.email,
-                        subject: 'Budget Alert: 80% Threshold Reached',
-                        message: `Warning: Your total expenses ($${totalExpense}) have reached ${percentage}% of your total income ($${totalIncome}). Please spend wisely!`,
-                        html: `<h3>Budget Alert ⚠️</h3><p>Your total expenses (<b>$${totalExpense}</b>) have reached <b style="color:red;">${percentage}%</b> of your total income ($${totalIncome}).</p><p>Please check your dashboard for details.</p>`
-                    });
-                } else {
-                    console.log('Skipping email: EMAIL_USER/PASS not set in .env');
-                }
-            }
-        }
 
         res.status(201).json(transaction);
     } catch (error) {
