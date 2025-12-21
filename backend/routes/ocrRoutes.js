@@ -33,6 +33,6 @@ function checkFileType(file, cb) {
     }
 }
 
-router.post('/scan', protect, upload.single('image'), scanBill);
+router.post('/scan', protect, upload.single('bill'), scanBill);
 
 module.exports = router;
