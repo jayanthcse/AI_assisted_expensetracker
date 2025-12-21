@@ -8,8 +8,16 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
+// 🔴 CORS — MUST be before routes
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://ai-assisted-expensetracker.vercel.app"
+  ],
+  credentials: true
+}));
+
+// Body parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
