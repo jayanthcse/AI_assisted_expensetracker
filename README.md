@@ -4,7 +4,7 @@
 **AI Assisted Expense Tracker**
 
 ## 2. Project Description
-A full-stack MERN web application designed for comprehensive personal and group finance management. Inspired by Splitwise, it offers robust group expense sharing with various split types, real-time balance tracking, and simplified settlements. Uniquely, it features an **AI-assisted bill scanning** capability using local OCR (Tesseract.js) to automatically extract transaction details from receipts. The application prioritizes privacy and security with JWT authentication and a clean, modern UI.
+A full-stack (MERN Stack) application designed for comprehensive personal and group finance management. Inspired by Splitwise, it offers robust group expense sharing with various split types, real-time balance tracking, and simplified settlements. Uniquely, it features an **AI-assisted bill scanning** capability using local OCR (Tesseract.js) to automatically extract transaction details from receipts. The application prioritizes privacy and security with JWT authentication and a clean, modern UI.
 
 ## 3. Features
 - **User Authentication**: Secure Registration and Login using JWT (JSON Web Tokens).
@@ -95,3 +95,4 @@ A full-stack MERN web application designed for comprehensive personal and group 
 - **Cloud Storage**: Integrate AWS S3 or Cloudinary for persistent bill image storage.
 - **Push Notifications**: Real-time updates for group expenses.
 - **Mobile App**: React Native adaptation.
+
